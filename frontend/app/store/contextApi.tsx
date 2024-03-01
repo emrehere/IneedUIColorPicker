@@ -4,7 +4,7 @@ import { createContext, useState, useContext, useEffect } from "react"
 const StoreContext = createContext<ContextApi>({
     onFavPage: false,
     setOnFavPage: () => {},
-    addAndRemoveToFavs: () => {},
+    addToFavs: () => {},
     getAllTheColors: () => {},
     getData: () => {},
     colors: [],
@@ -26,7 +26,7 @@ export function useContextApi(){
 interface ContextApi {
     onFavPage: boolean;
     setOnFavPage: React.Dispatch<React.SetStateAction<boolean>>;
-    addAndRemoveToFavs: (color: string) => void; 
+    addToFavs: (color: string) => void; 
     getAllTheColors: (url: string) => void;
     getData: () => void;
     colors: colorProps[];
@@ -87,7 +87,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
     }
  
 
-    const addAndRemoveToFavs = async(color: string) => {
+    const addToFavs = async(color: string) => {
         const dataToSend = { colors: color };
             console.log("dataToSend", dataToSend)
             setColors([...colors, color]);
@@ -183,8 +183,16 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
     }
 
     const deleteColorByHex = async (hex: string) => {
-        console.log("frontend", hex)
-        console.log(typeof hex)
+        
+        const token = localStorage.getItem('token');
+        const parsedToken = token ? JSON.parse(token) : null;
+    
+        if (!parsedToken) {
+            // Handle the case where there is no valid token (optional)
+            console.warn('No valid token found.');
+            return;
+        }
+
         const url = `http://localhost:7000/api/viahex/${encodeURIComponent(hex)}`;
 
         try {
@@ -192,6 +200,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${parsedToken}`,
                 }
             });
             console.log("Response:", response);
@@ -209,7 +218,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
     }
  
     return (
-        <StoreContext.Provider value={{ colors, addAndRemoveToFavs, deleteColorByHex, getData,
+        <StoreContext.Provider value={{ colors, addToFavs, deleteColorByHex, getData,
           onFavPage, setOnFavPage, getAllTheColors, setColors, handleDelete }} >
             {children}
         </StoreContext.Provider>

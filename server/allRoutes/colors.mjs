@@ -1,12 +1,12 @@
 import express from "express";
-import {  postColors, getColors, deleteColorById } from "../controllers/colorController.mjs";
+import {  postColors, getColors, deleteColorById, viaHexDelete } from "../controllers/colorController.mjs";
 import requireAuth from "../middleware/requireAuth.mjs"
 
 
 const router = express.Router();
 
 
-// router.delete('/viahex/:hex',  viaHexDelete)
+router.delete('/viahex/:hex', requireAuth, viaHexDelete)
 
 // router.put('/updateColors', updateColors)
 

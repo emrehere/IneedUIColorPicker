@@ -11,7 +11,7 @@ export default function Page() {
     const [hexColors, setHexColors] = useState<string[]>([]);
     const [limit, setLimit] = useState(8);
 
-    const { colors, addAndRemoveToFavs, deleteColorByHex } = useContextApi();
+    const { colors, addToFavs, deleteColorByHex } = useContextApi();
 
 
     const generateHex = () => {
@@ -69,7 +69,7 @@ export default function Page() {
                                         <div className="hover:scale-125 flex justify-center pt-16 items-center h-full"   >
                                             {
                                                 colors.includes(color) ? <div onClick={() => deleteColorByHex(color)}> <IoMdHeart size={50} color="red" /> </div>
-                                                    : <div onClick={() => addAndRemoveToFavs(color)} ><IoMdHeart size={50} color="white" /></div>
+                                                    : <div onClick={() => addToFavs(color)} ><IoMdHeart size={50} color="white" /></div>
                                             }
                                         </div>
                                     </div>

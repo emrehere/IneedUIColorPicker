@@ -95,30 +95,40 @@ async function postColors (req, res) {
   };
 
 
-  export { postColors, getColors, deleteColorById };
+  
 
-//  async function viaHexDelete (req, res) {
-//   try {
-//     console.log(req.params.hex)
-//     const hex = req.params.hex;
-//     console.log(hex)
+ async function viaHexDelete (req, res) {
+  try {
+    
+    const { _id } = req.user;
 
-//     const filter = { colors: hex };
+    const user_id = _id;
 
-//     // Find and delete the document that matches the hex color filter
-//     const deletedDocument = await MyColorsInfo.findOneAndDelete(filter);
+    if (!user_id) {
+      return res.status(400).json({ error: 'User ID is required ' });
+    }
 
-//     // Check if the document was found and deleted
-//     if (!deletedDocument) {
-//       return res.status(404).json({ error: 'No matching document found' });
-//     }
+    const hex = req.params.hex;
 
-//     res.status(200).json({ message: 'Color deleted successfully', deletedDocument });
-//   } catch (error) {
-//     console.error('Error deleting color:', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// }
+
+    const filter = { colors: hex };
+
+    // Find and delete the document that matches the hex color filter
+    const deletedDocument = await MyColorsInfo.findOneAndDelete(filter);
+
+    // Check if the document was found and deleted
+    if (!deletedDocument) {
+      return res.status(404).json({ error: 'No matching document found' });
+    }
+
+    res.status(200).json({ message: 'Color deleted successfully', deletedDocument });
+  } catch (error) {
+    console.error('Error deleting color:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+export { postColors, getColors, deleteColorById, viaHexDelete };
 
 // async function updateColors (req, res)  {
 //   try {
