@@ -1,7 +1,75 @@
 // colorsRoute.mjs
 import express from 'express';
-import MyColorsInfo from './models/colorSchema.mjs';
+import MyColorsInfo from '../models/colorSchema.mjs';
 
+
+async function postColors (req, res) {
+    
+    try {
+      const { colors } = req.body;
+      
+      const { _id } = req.user;
+
+      const user_id = _id;
+
+      if (!user_id) {
+        return res.status(400).json({ error: 'User ID is required ' });
+      }
+  
+      if (!colors) {
+        return res.status(400).json({ error: 'Colors are required in the request body' });
+      }
+  
+      // Save color data to the database
+      const newColorData = new MyColorsInfo({ colors, user_id });
+      const savedColor = await newColorData.save();
+      console.log('Saved color data:', savedColor);
+  
+      // Respond to the client with the newly created color and its _id
+      res.status(201).json({ _id: savedColor._id, colors: savedColor.colors });
+    } catch (error) {
+      console.error('Error saving color data:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+
+
+  async function getColors (req, res) {
+    console.log("getcolor")
+    try {
+
+      const { _id } = req.user;
+
+      const user_id = _id;
+
+      if (!user_id) {
+        return res.status(400).json({ error: 'User ID is required ' });
+      }
+
+      const filter = { user_id };
+
+      // Query the database to get color data
+      const colorData = await MyColorsInfo.find( filter );
+      console.log('Retrieved color data:', colorData);
+  
+      if (!colorData) {
+        return res.status(404).json({ error: 'Color data not found' });
+      }
+  
+      
+      const colorsWithIds = colorData.map(({ _id, colors }) => ({ _id, colors }));
+
+      console.log(colorsWithIds)
+  
+      res.status(200).json(colorsWithIds);
+    } catch (error) {
+      console.error('Error retrieving color data:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+
+
+  export { postColors, getColors };
 
 //  async function viaHexDelete (req, res) {
 //   try {
@@ -62,46 +130,7 @@ import MyColorsInfo from './models/colorSchema.mjs';
 // };
 
 
-//  async function getColors (req, res) {
-//   try {
-//     // Query the database to get color data
-//     const colorData = await MyColorsInfo.find();
 
-//     if (!colorData) {
-//       return res.status(404).json({ error: 'Color data not found' });
-//     }
-
-
-//     const colorsWithIds = colorData.map(({ _id, colors }) => ({ _id, colors }));
-
-//     res.status(200).json(colorsWithIds);
-//   } catch (error) {
-//     console.error('Error retrieving color data:', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// };
-
-// async function postColors (req, res) {
-//   try {
-//     const { colors } = req.body;
-  
-
-//     if (!colors) {
-//       return res.status(400).json({ error: 'Colors are required in the request body' });
-//     }
-
-//     // Save color data to the database
-//     const newColorData = new MyColorsInfo({ colors});
-//     const savedColor = await newColorData.save();
-//     console.log('Saved color data:', savedColor);
-
-//     // Respond to the client with the newly created color and its _id
-//     res.status(201).json({ _id: savedColor._id, colors: savedColor.colors });
-//   } catch (error) {
-//     console.error('Error saving color data:', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// };
 
 // async function deleteColorById (req, res) {
 //   try {
@@ -189,6 +218,8 @@ import MyColorsInfo from './models/colorSchema.mjs';
 
 // export { getColors, postColors, deleteColorById, updateColorById, updateAllColors,
 //      deleteColorByValue };
+
+
 
 
 

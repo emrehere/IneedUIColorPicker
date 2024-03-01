@@ -7,9 +7,12 @@ import { useState, useEffect } from "react";
 
 
 
+
+
+
 export default function Page() {
 
-    const {  getData, colors, handleDelete } = useContextApi();
+    const {  getData, colors} = useContextApi();
   
 
     const handleCopyClick = async (color: string) => {
@@ -44,17 +47,22 @@ export default function Page() {
                 
                 {
                    
-                   colors.map((color: Color, index: number) => {
-                    const { _id: colorId, colors: colorToRender } = color;
+                   colors.map((color: string, index: number) => {
+
+                    const mycolor: string = color.colors
+                    const colorId: string = color._id
+                    
+                  
                         
                         return (
                            
                             <div className="mt-8 relative" key={index}>
                                  
 
-                                 <IoCloseSharp size={50} onClick={() => handleDelete(colorId)} className=" hover:scale-105 mx-8 -mb-12  rounded-xl bg-purple-50 text-red-600 cursor-pointer absolute" />
-                                <div onClick={() => handleCopyClick(colorToRender)} className="w-64 shadow-xl rounded-md h-64 mx-8  "
-                                    style={{ backgroundColor: colorToRender , boxShadow: `2px 2px 2px ${ colorToRender }` }}>
+                                 <IoCloseSharp size={50} onClick={() => handleDelete(colorId)} className=" hover:scale-105 mx-8 -mb-12 
+                                  rounded-xl bg-purple-50 text-red-600 cursor-pointer absolute" />
+                                <div onClick={() => handleCopyClick(mycolor)} className="w-64 shadow-xl rounded-md h-64 mx-8  "
+                                    style={{ backgroundColor: mycolor , boxShadow: `2px 2px 2px ${ mycolor }` }}>
                                     <div className="flex justify-end">                                        
                                     </div>
                                 </div>

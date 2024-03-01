@@ -8,7 +8,7 @@ import FooterMain from "@/app/components/footerMain";
 const inter = Inter({ subsets: ["latin"] });
 
 
-export default function RootLayout({
+export default function SignUpLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

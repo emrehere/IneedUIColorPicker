@@ -1,19 +1,20 @@
 import express from "express";
-import {  } from "../controllers/colorController.mjs";
+import {  postColors, getColors } from "../controllers/colorController.mjs";
+import requireAuth from "../middleware/requireAuth.mjs"
 
 
 const router = express.Router();
 
 
-// router.delete('/viahex/:hex', viaHexDelete)
+// router.delete('/viahex/:hex',  viaHexDelete)
 
 // router.put('/updateColors', updateColors)
 
 // router.put('/anotherUpdateColors', anotherUpdateColors)
 
-// router.get('/getColors', getColors)
+router.get('/getColors', requireAuth, getColors)
 
-// router.post('/postColors', postColors)
+router.post('/postColors', requireAuth, postColors)
 
 // router.delete('/deleteColor/:id', deleteColorById)
 

@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './mongoose.mjs';
 import userRoutes from './allRoutes/users.mjs'
+import colorRoutes from './allRoutes/colors.mjs'
 
 
 
@@ -17,7 +18,7 @@ app.use(cors());
 
 connectDB();
 
-
+app.use('/api', colorRoutes);
 app.use('/user', userRoutes);
 
 
