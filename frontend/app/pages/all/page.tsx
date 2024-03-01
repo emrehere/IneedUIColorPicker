@@ -4,14 +4,18 @@ import { useEffect, useState } from "react";
 import { useContextApi } from "@/app/store/contextApi";
 import { IoMdHeart } from "react-icons/io";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 
 export default function Page() {
 
     const [hexColors, setHexColors] = useState<string[]>([]);
     const [limit, setLimit] = useState(8);
+    const [myToken, setMyToken] = useState<string | null>(null);
 
-    const { colors, addToFavs, deleteColorByHex } = useContextApi();
+    const { colors, addToFavs, deleteColorByHex, getData } = useContextApi();
+
+    const router = useRouter();
 
 
     const generateHex = () => {
@@ -37,13 +41,21 @@ export default function Page() {
 
     }
 
-   useEffect(() => {
-    console.log("colors array", colors)
-   },[colors])
+   
+    useEffect(() => {
+        const myToken = localStorage.getItem('token');
+        setMyToken(myToken);
+        if (!myToken) {
+            router.push("/pages/signin");
+        }        
+    }, [])
 
 
     return (
-        <motion.div
+        <>
+        {
+            myToken && (
+                <motion.div
         initial={{ x: 500, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.9, ease: "easeInOut" }}
@@ -91,5 +103,8 @@ export default function Page() {
             </div>
 
         </motion.div>
+            )
+        }
+        </>
     );
 }

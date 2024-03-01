@@ -1,5 +1,6 @@
 "use client"
 import { createContext, useState, useContext, useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 const StoreContext = createContext<ContextApi>({
     onFavPage: false,
@@ -11,6 +12,7 @@ const StoreContext = createContext<ContextApi>({
     setColors: () => {},
     deleteColorByHex: () => {},
     handleDelete: () => {},
+    signOut: () => {},
   
   });
 
@@ -33,7 +35,7 @@ interface ContextApi {
     setColors: React.Dispatch<React.SetStateAction<string[]>>;
     deleteColorByHex: (hex: string) => void;
     handleDelete: (id: string) => void;
-
+    signOut: () => void;
 }
 
 interface ContextApiProviderProps {
@@ -44,6 +46,8 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
 
     const [onFavPage, setOnFavPage] = useState(false);
     const [colors, setColors] = useState<string[]>([]);
+
+    const router = useRouter();
    
     const urlPost = 'http://localhost:7000/api/postColors';  
     async function postData(urlPost: string, postData: { colors: string }) {
@@ -139,7 +143,11 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
         const data = await getAllTheColors('http://localhost:7000/api/getColors');
        
         setColors(data);  
+
+        
     }
+
+    
 
     async function handleDelete(colorId: string) {
 
@@ -215,10 +223,22 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
         }
     
     }
+
+    async function signOut() {
+        
+        localStorage.removeItem('token');
+
+        setColors([]);
+
+        setOnFavPage(false);
+
+        router.push('/');
+
+    }
  
     return (
         <StoreContext.Provider value={{ colors, addToFavs, deleteColorByHex, getData,
-          onFavPage, setOnFavPage, getAllTheColors, setColors, handleDelete }} >
+          onFavPage, setOnFavPage, getAllTheColors, setColors, handleDelete, signOut }} >
             {children}
         </StoreContext.Provider>
 

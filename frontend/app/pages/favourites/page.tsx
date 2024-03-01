@@ -4,7 +4,7 @@ import { useContextApi } from "@/app/store/contextApi";
 import { motion } from "framer-motion";
 import { IoCloseSharp } from "react-icons/io5";
 import { useState, useEffect } from "react";
-
+import { useRouter } from "next/navigation";
 
 
 
@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 export default function Page() {
 
     const {  getData, colors, handleDelete } = useContextApi();
+    const router = useRouter();
   
 
     const handleCopyClick = async (color: string) => {
@@ -26,9 +27,19 @@ export default function Page() {
 
 
     useEffect(() => {
-        getData()
+        const myToken = localStorage.getItem('token');
+        console.log(myToken)
+        if (!myToken) {
+            router.push("/pages/signin");
+        }
+
+        if (myToken) {
+            getData()
+        }
         
     }, [])
+
+    
    
 
 

@@ -1,5 +1,6 @@
 "use client"
 import { createContext, useReducer, useContext } from "react";
+import { useRouter } from "next/navigation";
 
 interface SignUpState {
     name: string;
@@ -59,6 +60,8 @@ interface SignUpState {
   
   export default function SignUpContextProvider({ children }: { children: React.ReactNode }) {
     const [state, dispatch] = useReducer(reducer, initialState);
+    
+    const router = useRouter();
 
     const saveTheUser = async () => {
       console.log('saving user', state) 
@@ -78,6 +81,8 @@ interface SignUpState {
   
         if (res.ok) {
           console.log('user saved')
+          console.log("ready to go home")
+          router.push('/pages/home')
         } else {
           console.log('user not saved')
         }

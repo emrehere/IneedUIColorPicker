@@ -1,5 +1,6 @@
 "use client";
 import { useContext, createContext, useReducer, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface SignInState {
     email: string;
@@ -58,6 +59,8 @@ export default function SignInContextProvider({ children }: { children: React.Re
     const [state, dispatch] = useReducer(reducer, initialState);
     const [userData, setUserData] = useState({});
 
+    const router = useRouter();
+
     const loginUser = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log("hadi basla")
@@ -87,7 +90,9 @@ export default function SignInContextProvider({ children }: { children: React.Re
                 // Store the token securely in localStorage
                 localStorage.setItem('token', JSON.stringify(data.token));
 
-                console.log('User logged in');    
+                console.log('User logged in');   
+                 
+                router.push('/pages/home');
             } else {
                 console.log('User not logged in. Status:', res.status);
                 const errorData = await res.json(); // If the server returns error details in the response body
