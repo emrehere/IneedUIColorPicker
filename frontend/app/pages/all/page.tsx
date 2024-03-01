@@ -37,6 +37,10 @@ export default function Page() {
 
     }
 
+   useEffect(() => {
+    console.log("colors array", colors)
+   },[colors])
+
 
     return (
         <motion.div

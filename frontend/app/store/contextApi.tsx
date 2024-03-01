@@ -92,9 +92,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
             console.log("dataToSend", dataToSend)
             setColors([...colors, color]);
             await postData(urlPost, dataToSend);
-            console.log("colors", colors)
-            
-      
+            console.log("colors", colors) 
     };
 
   
@@ -209,6 +207,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
             }
             const data = await response.json();
             
+            setColors(colors.filter((color) => color !== hex));
             return data;
         } catch (error) {
             console.error('Error:', error);
