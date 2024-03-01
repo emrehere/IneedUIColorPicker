@@ -1,5 +1,5 @@
 import express from "express";
-import {  postColors, getColors } from "../controllers/colorController.mjs";
+import {  postColors, getColors, deleteColorById } from "../controllers/colorController.mjs";
 import requireAuth from "../middleware/requireAuth.mjs"
 
 
@@ -16,7 +16,7 @@ router.get('/getColors', requireAuth, getColors)
 
 router.post('/postColors', requireAuth, postColors)
 
-// router.delete('/deleteColor/:id', deleteColorById)
+router.delete('/deleteColor/:id', requireAuth, deleteColorById)
 
 // router.put('/updateColor/:id', updateColorById)
 

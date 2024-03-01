@@ -69,7 +69,33 @@ async function postColors (req, res) {
   };
 
 
-  export { postColors, getColors };
+  async function deleteColorById (req, res) {
+    try {
+
+      const { _id } = req.user;
+
+      const user_id = _id;
+
+      if (!user_id) {
+        return res.status(400).json({ error: 'User ID is required ' });
+      }
+  
+      const { id } = req.params;
+  
+      // Delete one color data from the database
+      await MyColorsInfo.findByIdAndDelete(id);
+  
+  
+  
+      res.status(200).json({ message: 'Color data deleted successfully' });
+  } catch (error) {
+      console.error('Error deleting color data:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+  };
+
+
+  export { postColors, getColors, deleteColorById };
 
 //  async function viaHexDelete (req, res) {
 //   try {
@@ -130,24 +156,6 @@ async function postColors (req, res) {
 // };
 
 
-
-
-// async function deleteColorById (req, res) {
-//   try {
-
-//     const { id } = req.params;
-
-//     // Delete one color data from the database
-//     await MyColorsInfo.findByIdAndDelete(id);
-
-
-
-//     res.status(200).json({ message: 'Color data deleted successfully' });
-// } catch (error) {
-//     console.error('Error deleting color data:', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-// }
-// };
 
 // async function updateColorById (req, res) {
 //   try {

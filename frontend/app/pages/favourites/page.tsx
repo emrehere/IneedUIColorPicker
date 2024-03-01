@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 
 export default function Page() {
 
-    const {  getData, colors} = useContextApi();
+    const {  getData, colors, handleDelete } = useContextApi();
   
 
     const handleCopyClick = async (color: string) => {
@@ -47,19 +47,16 @@ export default function Page() {
                 
                 {
                    
-                   colors.map((color: string, index: number) => {
+                   colors.map((color, index) => {
 
-                    const mycolor: string = color.colors
-                    const colorId: string = color._id
-                    
-                  
-                        
+                    const mycolor : any = color.colors
+                            
                         return (
                            
                             <div className="mt-8 relative" key={index}>
                                  
 
-                                 <IoCloseSharp size={50} onClick={() => handleDelete(colorId)} className=" hover:scale-105 mx-8 -mb-12 
+                                 <IoCloseSharp size={50} onClick={() => handleDelete(color._id)} className=" hover:scale-105 mx-8 -mb-12 
                                   rounded-xl bg-purple-50 text-red-600 cursor-pointer absolute" />
                                 <div onClick={() => handleCopyClick(mycolor)} className="w-64 shadow-xl rounded-md h-64 mx-8  "
                                     style={{ backgroundColor: mycolor , boxShadow: `2px 2px 2px ${ mycolor }` }}>

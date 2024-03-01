@@ -10,6 +10,7 @@ const StoreContext = createContext<ContextApi>({
     colors: [],
     setColors: () => {},
     deleteColorByHex: () => {},
+    handleDelete: () => {},
   
   });
 
@@ -31,7 +32,7 @@ interface ContextApi {
     colors: colorProps[];
     setColors: React.Dispatch<React.SetStateAction<string[]>>;
     deleteColorByHex: (hex: string) => void;
-
+    handleDelete: (id: string) => void;
 
 }
 
@@ -142,27 +143,44 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
         setColors(data);  
     }
 
-    // async function handleDelete(id: string) {
-     
+    async function handleDelete(colorId: string) {
 
-    //     setColors(colors.filter((color) => color._id !== id))
+        const token = localStorage.getItem('token');
+        const parsedToken = token ? JSON.parse(token) : null;
+    
+        if (!parsedToken) {
+            // Handle the case where there is no valid token (optional)
+            console.warn('No valid token found.');
+            return;
+        }
+
+        console.log("parsedToken", parsedToken)
+
+        console.log("colorId", colorId)
+
+        setColors(colors.filter((color) => color._id !== colorId));
         
-    //     try {
-    //         const response = await fetch(`http://localhost:7000/api/${id}`, {
-    //             method: 'DELETE',
-    //         });
-    //         if (!response.ok) {
-    //             throw new Error(`HTTP error! Status: ${response.status}`);
-    //         }
-    //         const data = await response.json();
+        try {
+            const response = await fetch(`http://localhost:7000/api/deleteColor/${colorId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${parsedToken}`,
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log("data", data)
             
-    //         return data;
-    //     } catch (error) {
-    //         console.error('Error:', error);
-    //         throw error;
-    //     }
+            return data;
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
 
-    // }
+    }
 
     const deleteColorByHex = async (hex: string) => {
         console.log("frontend", hex)
@@ -192,7 +210,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
  
     return (
         <StoreContext.Provider value={{ colors, addAndRemoveToFavs, deleteColorByHex, getData,
-          onFavPage, setOnFavPage, getAllTheColors, setColors }} >
+          onFavPage, setOnFavPage, getAllTheColors, setColors, handleDelete }} >
             {children}
         </StoreContext.Provider>
 
