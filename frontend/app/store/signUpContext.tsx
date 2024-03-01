@@ -63,7 +63,10 @@ interface SignUpState {
     
     const router = useRouter();
 
-    const saveTheUser = async () => {
+    const saveTheUser = async (e: React.FormEvent) => {
+      
+      e.preventDefault();
+
       console.log('saving user', state) 
       try {
         const res = await fetch('http://localhost:7000/user/register', {
@@ -80,9 +83,17 @@ interface SignUpState {
         console.log(res)
   
         if (res.ok) {
-          console.log('user saved')
-          console.log("ready to go home")
-          router.push('/pages/home')
+          
+           const data = await res.json();
+
+           console.log(data);
+
+           localStorage.setItem('token', JSON.stringify(data.token));
+
+           console.log('User logged in'); 
+
+           router.push('/pages/home');
+
         } else {
           console.log('user not saved')
         }
