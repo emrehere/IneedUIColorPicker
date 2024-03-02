@@ -52,7 +52,7 @@ export default function Page() {
             <Navbar />
             <div  >
             <h1 className="text-4xl bg-purple-50 flex justify-center p-4
-            tracking-widest font-bold text-red-600 ">My Favourites</h1>
+            tracking-widest font-bold text-red-600  sm:h-16 h-32 items-center ">My Favourites</h1>
             </div>
             <div className="flex  flex-row items-center justify-center flex-wrap mt-4">                    
                 

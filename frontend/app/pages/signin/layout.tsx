@@ -15,7 +15,12 @@ export default function SignInLayout({
     
      
         <div className="overflow-x-hidden">
-        <NavbarMain propFromParent="Sign Up"/>     
+        <div className="sm:hidden flex">
+        <NavbarMain styleFromParent="none" propFromParent="Sign Up"/>     
+        </div>  
+        <div className="sm:flex hidden">
+        <NavbarMain styleFromParent="" propFromParent="Sign Up"/>     
+        </div>  
         {children}
         <FooterMain/>
         </div>

@@ -1,7 +1,4 @@
 
-
-
-
 export default function HomeLayout({
   children,
 }: Readonly<{
@@ -11,7 +8,9 @@ export default function HomeLayout({
  
 
         <>
-        {children}
+        
+          {children}
+     
         </>
 
    

@@ -63,15 +63,16 @@ export default function Page() {
          min-h-screen pb-[10vh] overflow-x-hidden">
             <Navbar />
             <div>
-                <div className="text-4xl flex justify-center items-center bg-purple-50 shadow-sm shadow-gray-400   h-16  font-bold mt-8">
-                    <p className="text-gray-950">Most Preferred Colors</p>
+                <div className="text-4xl  flex justify-center items-center bg-purple-50 shadow-sm shadow-gray-400 
+                  sm:h-16 h-32  font-bold sm:mt-8 px-2 sm:px-0">
+                    <p className="text-red-600 ">Most Preferred Colors</p>
                 </div>
                 <motion.div
-                    initial={{ x: 1000 }}
-                    animate={{ x: -1000 }}
+                    initial={{ x: 400 }}
+                    animate={{ x: -300 }}
                     transition={{ duration: 20, ease: "linear", repeat: Infinity }}
 
-                    className="text-purple-50 mt-2"
+                    className="text-purple-50 mt-2  text-md"
                 >
                     Most preferred colors change every single second, if you like a color, make sure you add to your favourites
                 </motion.div>

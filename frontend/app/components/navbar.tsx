@@ -33,21 +33,22 @@ export default function Navbar() {
         <div>
             <div className=" h-20 w-full bg-purple-100 bg-opacity-10 flex flex-row">
                 <div
-                    className="w-[50vw] flex flex-grow items-center"
+                    className="sm:w-[50vw] flex flex-grow items-center"
                 >
                     <div
                         onClick={() => router.push("/pages/home")}
-                        className="bg-red-600 h-full px-2"
+                        className="bg-red-600 h-full sm:px-2 "
                     >
-                        <FaArrowRightToBracket size={40} className="m-4 cursor-pointer" />
+                        <FaArrowRightToBracket size={40} className="mt-4 m-2  sm:m-4  cursor-pointer" />
                     </div>
 
                 </div>
-                <div className="flex items-center space-x-8 h-20 px-8 " >
+                <div className="flex items-center sm:space-x-8 h-20 sm:px-8  " >
                     {
                         onFavPage ? <div onClick={handlePushAll}> <RedButton icon={""} title="Discover Colors" /></div>
                             : <div onClick={handlePushFav}> <RedButton icon={""} title="See My Favourites" />  </div>
                     }
+                    <p className="h-full bg-purple-50 w-[2px] sm:hidden flex "></p>
                     <div onClick={signOut}>
                         <RedButton title="Sign Out" icon={<FaSignOutAlt />} />
                     </div>
