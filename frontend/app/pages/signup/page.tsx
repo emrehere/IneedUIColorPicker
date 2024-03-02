@@ -10,16 +10,16 @@ function Page() {
   return (
     <div>
       <div className="bg-gradient-to-br from-black via-gray-950 to-purple-950
-         min-h-screen   overflow-x-hidden flex justify-center items-center">
-          <div className='bg-purple-50 w-[40vw] h-[27rem] rounded-xl rounded-tr-[15rem]
-          rounded-bl-[10rem] bg-opacity-80 flex items-center p-8 '>
+         min-h-screen   overflow-x-hidden flex sm:flex-row flex-col justify-center items-center">
+          <div className='bg-purple-50 sm:w-[40vw] sm:h-[27rem] sm:rounded-xl sm:rounded-tr-[15rem]
+         sm:rounded-bl-[10rem] bg-opacity-80 flex items-center sm:p-8 p-8 pt-60 sm:mt-0 -mt-40 '>
            <div>
            <h1 className='text-red-600 text-5xl font-semibold mb-8 tracking-wide'>Are you ready ?</h1>
             <p className='text-gray-900 text-2xl font-semibold'>Dive into a world of endless color possibilities with our Color Generator. Unleash your creativity and transform your projects with a spectrum of vibrant hues. Let the exploration begin!</p>
            </div>
           </div>
-          <div className=' w-[40vw]  h-[27rem] ml-[5vw] border-2 border-purple-50 p-8 rounded-xl
-          border-opacity-20 flex items-center'>
+          <div className=' sm:w-[40vw] w-[90vw] sm:h-[27rem] sm:ml-[5vw] border-2 border-purple-50 p-8 rounded-xl
+          border-opacity-20 flex items-center my-12 '>
             <form className='flex flex-col text-gray-900 w-full '>
               <div className='flex justify-center  '>
               <h2 className='text-4xl font-semibold text-purple-50 mb-4'>Join Now !</h2>
