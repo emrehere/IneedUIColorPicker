@@ -8,9 +8,9 @@ export default function FavouritesLayout({
   return (
 
 
-        <div>
-            {children}
-        </div>
+    <div>
+        {children}
+    </div>
 
   );
 }

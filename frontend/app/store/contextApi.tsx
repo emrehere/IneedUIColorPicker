@@ -42,6 +42,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
 
     const [onFavPage, setOnFavPage] = useState(false);
     const [colors, setColors] = useState<any>([]);
+    
 
     const router = useRouter();
    

@@ -7,10 +7,11 @@ export default function AllLayout({
   children: React.ReactNode;
 }>) {
   return (
- 
-      <>
-      {children}
-      </>
+
+    <>
+        {children}
+
+    </>
 
 
   );

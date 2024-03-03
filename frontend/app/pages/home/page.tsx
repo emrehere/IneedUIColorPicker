@@ -1,8 +1,5 @@
 "use client"
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Page from '../all/page'
-import { motion } from 'framer-motion';
 import { useEffect, useState } from "react";
 import { useContextApi } from "../../store/contextApi";
 

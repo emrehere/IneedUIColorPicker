@@ -1,7 +1,6 @@
 "use client"
 import Navbar from "@/app/components/navbar";
 import { useContextApi } from "@/app/store/contextApi";
-import { motion } from "framer-motion";
 import { IoCloseSharp } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -37,18 +36,14 @@ export default function Page() {
             getData()
         }
         
-    }, [ router, getData ])
+    }, [ router ])
 
     
    
 
 
     return (
-        <motion.div
-        initial={{ x: 500, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.9, ease: "easeInOut" }}
-        >
+        <div>
             <Navbar />
             <div  >
             <h1 className="text-4xl bg-purple-50 flex justify-center p-4
@@ -79,6 +74,6 @@ export default function Page() {
                     })
                 }
             </div>
-        </motion.div>
+        </div>
     );
 }

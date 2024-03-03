@@ -5,12 +5,16 @@ import cors from 'cors';
 import connectDB from './mongoose.mjs';
 import userRoutes from './allRoutes/users.mjs'
 import colorRoutes from './allRoutes/colors.mjs'
+import compression from 'compression';
 
 
 
 dotenv.config();  
 
 const app = express();
+
+app.use(compression());
+
 const port = process.env.PORT || 7000;
 
 app.use(express.json());

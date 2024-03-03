@@ -22,7 +22,7 @@ function Page() {
   return (
     <div>
      {
-       myToken && (
+       !myToken && (
         <div className="bg-gradient-to-br from-black via-gray-950 to-purple-950
         min-h-screen   overflow-x-hidden flex sm:flex-row flex-col justify-center items-center">
        <div className='bg-purple-50 sm:w-[40vw] sm:h-[27rem] sm:rounded-xl sm:rounded-tr-[15rem]

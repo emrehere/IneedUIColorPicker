@@ -29,7 +29,7 @@ function Page() {
     <div style={{ backgroundImage: "url('/bgfoto1.webp')" }}
       className='sm:h-[90vh] h-[80vh] bg-cover bg-center flex items-center justify-center' >
       {
-        myToken && (
+        !myToken && (
           <div className=' sm:w-[50vw] w-[90vw] h-[30rem] sm:h-[28rem] sm:ml-[5vw] border-4 border-purple-50 p-8 rounded-xl
           border-opacity-25 flex items-center justify-center  '>
         <form className='flex flex-col text-gray-900 w-[90%] '>

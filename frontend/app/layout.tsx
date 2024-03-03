@@ -1,9 +1,12 @@
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ContextApiProvider from "./store/contextApi";
 import SignUpContextProvider from "./store/signUpContext";
 import SignInContextProvider from "./store/signInContext";
+
+
 
 
 
@@ -21,13 +24,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+
       <SignUpContextProvider>
         <SignInContextProvider>
           <ContextApiProvider>
-            <body className={inter.className}>{children}</body>
+            <body className={inter.className}>
+
+              {children}
+
+            </body>
           </ContextApiProvider>
         </SignInContextProvider>
       </SignUpContextProvider>
+
     </html>
   );
 }
