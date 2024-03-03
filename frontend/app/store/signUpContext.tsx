@@ -16,7 +16,7 @@ interface SignUpState {
   interface SignUpContextType {
     state: SignUpState;
     dispatch: React.Dispatch<SignUpAction>;
-    saveTheUser: () => void;
+    saveTheUser: (e: React.FormEvent) => void;
   }
   
   const initialState: SignUpState = {

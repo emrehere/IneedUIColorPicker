@@ -5,9 +5,7 @@ import Link from 'next/link'
 
 function NavbarMain({ propFromParent, styleFromParent }: { propFromParent: string, styleFromParent: string }) {
  
-  useEffect(() => {
-    console.log("propFromParent", styleFromParent)
-  },[])
+ 
  
   return (
     <div className='bg-purple-50 w-full h-20 sm:h-16 overflow-x-hidden bg-opacity-85  flex flex-row '>

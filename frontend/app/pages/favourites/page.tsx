@@ -37,7 +37,7 @@ export default function Page() {
             getData()
         }
         
-    }, [])
+    }, [ router, getData ])
 
     
    
@@ -58,9 +58,9 @@ export default function Page() {
                 
                 {
                    
-                   colors.map((color, index) => {
+                   colors.map((color : any, index : number)  => {
 
-                    const mycolor : any = color.colors
+                    const mycolor = color.colors
                             
                         return (
                            

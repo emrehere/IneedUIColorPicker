@@ -16,14 +16,10 @@ const StoreContext = createContext<ContextApi>({
   
   });
 
-interface colorProps {
-    colors: string[]
-    _id: string
-}
-
 export function useContextApi(){
     return useContext(StoreContext)  
 }
+
 
 interface ContextApi {
     onFavPage: boolean;
@@ -31,10 +27,10 @@ interface ContextApi {
     addToFavs: (color: string) => void; 
     getAllTheColors: (url: string) => void;
     getData: () => void;
-    colors: colorProps[];
+    colors: string[];
     setColors: React.Dispatch<React.SetStateAction<string[]>>;
     deleteColorByHex: (hex: string) => void;
-    handleDelete: (id: string) => void;
+    handleDelete: (colorId: any) => void;
     signOut: () => void;
 }
 
@@ -45,7 +41,7 @@ interface ContextApiProviderProps {
 export default function ContextApiProvider({ children }: ContextApiProviderProps) {
 
     const [onFavPage, setOnFavPage] = useState(false);
-    const [colors, setColors] = useState<string[]>([]);
+    const [colors, setColors] = useState<any>([]);
 
     const router = useRouter();
    
@@ -147,9 +143,9 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
         
     }
 
-    
+ 
 
-    async function handleDelete(colorId: string) {
+    async function handleDelete(colorId: any) {
 
         const token = localStorage.getItem('token');
         const parsedToken = token ? JSON.parse(token) : null;
@@ -164,7 +160,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
 
         console.log("colorId", colorId)
 
-        setColors(colors.filter((color) => color._id !== colorId));
+        setColors(colors.filter((color : any) => color._id !== colorId));
         
         try {
             const response = await fetch(`http://localhost:7000/api/deleteColor/${colorId}`, {
@@ -215,7 +211,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
             }
             const data = await response.json();
             
-            setColors(colors.filter((color) => color !== hex));
+            setColors(colors.filter((color : any) => color !== hex));
             return data;
         } catch (error) {
             console.error('Error:', error);

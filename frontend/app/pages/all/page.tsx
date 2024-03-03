@@ -48,7 +48,7 @@ export default function Page() {
         if (!myToken) {
             router.push("/pages/signin");
         }        
-    }, [])
+    }, [router])
 
 
     return (
