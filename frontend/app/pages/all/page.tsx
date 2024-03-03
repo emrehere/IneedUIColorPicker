@@ -64,7 +64,7 @@ export default function Page() {
                                 <p className="text-red-600 ">Most Preferred Colors</p>
                             </div>
                             <div
-                                className="text-purple-50 mt-2  text-md"
+                                className="text-purple-50 mt-2  text-md flex justify-center items-center  "
                             >
                                 Most preferred colors change every single second, if you like a color, make sure you add to your favourites
                             </div>
