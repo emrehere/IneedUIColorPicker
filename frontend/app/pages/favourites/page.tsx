@@ -65,7 +65,7 @@ export default function Page() {
             tracking-widest font-bold text-red-600  sm:h-16 h-32 items-center ">My Favourites</h1>
             </div>
             <div
-                className="text-purple-50 mt-2  text-lg flex justify-center items-center  "
+                className="text-purple-50 mt-2  text-xl font-bold flex justify-center items-center  "
             >
                Click on the color to copy it !
             </div>
