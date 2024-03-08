@@ -1,5 +1,5 @@
 "use client"
-import { createContext, useReducer, useContext } from "react";
+import { createContext, useReducer, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 
 interface SignUpState {
@@ -17,6 +17,7 @@ interface SignUpState {
     state: SignUpState;
     dispatch: React.Dispatch<SignUpAction>;
     saveTheUser: (e: React.FormEvent) => void;
+    signUpError: string | null;
   }
   
   const initialState: SignUpState = {
@@ -29,6 +30,7 @@ interface SignUpState {
     state: initialState,
     dispatch: () => {},
     saveTheUser: () => {},
+    signUpError: null,
   });
   
   const reducer = (state: SignUpState, action: SignUpAction): SignUpState => {
@@ -60,6 +62,7 @@ interface SignUpState {
   
   export default function SignUpContextProvider({ children }: { children: React.ReactNode }) {
     const [state, dispatch] = useReducer(reducer, initialState);
+    const [signUpError, setSignUpError] = useState<string | null>('');
     
     const router = useRouter();
 
@@ -69,7 +72,7 @@ interface SignUpState {
 
       console.log('saving user', state) 
       try {
-        const res = await fetch('http://localhost:7000/user/register', {
+        const res = await fetch('http://uicolorserver.unurluworks.com/user/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -95,7 +98,10 @@ interface SignUpState {
            router.push('/pages/home');
 
         } else {
-          console.log('user not saved')
+            
+          const errorMessage = await res.json();
+          setSignUpError(errorMessage.error);
+
         }
   
       } catch (error) {
@@ -105,7 +111,7 @@ interface SignUpState {
       }
   
     return (
-      <SignUpContext.Provider value={{ state, dispatch, saveTheUser }}>
+      <SignUpContext.Provider value={{ state, dispatch, saveTheUser, signUpError }}>
         {children}
       </SignUpContext.Provider>
     );

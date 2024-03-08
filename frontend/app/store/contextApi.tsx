@@ -46,7 +46,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
 
     const router = useRouter();
    
-    const urlPost = 'http://localhost:7000/api/postColors';  
+    const urlPost = 'http://uicolorserver.unurluworks.com/api/postColors';  
     async function postData(urlPost: string, postData: { colors: string }) {
 
         const token = localStorage.getItem('token');
@@ -137,7 +137,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
 
     const getData = async () => {
 
-        const data = await getAllTheColors('http://localhost:7000/api/getColors');
+        const data = await getAllTheColors('http://uicolorserver.unurluworks.com/api/getColors');
        
         setColors(data);  
 
@@ -164,7 +164,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
         setColors(colors.filter((color : any) => color._id !== colorId));
         
         try {
-            const response = await fetch(`http://localhost:7000/api/deleteColor/${colorId}`, {
+            const response = await fetch(`http://uicolorserver.unurluworks.com/api/deleteColor/${colorId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -196,7 +196,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
             return;
         }
 
-        const url = `http://localhost:7000/api/viahex/${encodeURIComponent(hex)}`;
+        const url = `http://uicolorserver.unurluworks.com/api/viahex/${encodeURIComponent(hex)}`;
 
         try {
             const response = await fetch(url, {

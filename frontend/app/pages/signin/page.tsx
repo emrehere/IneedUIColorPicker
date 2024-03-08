@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 
 function Page() {
 
-  const { dispatch, state, loginUser } = useSignInContext()
+  const { dispatch, state, loginUser, signInError } = useSignInContext()
   const [myToken, setMyToken] = useState<string | null>(null);
  
   const router = useRouter();
@@ -27,10 +27,10 @@ function Page() {
 
   return (
     <div style={{ backgroundImage: "url('/bgfoto1.webp')" }}
-      className='sm:h-[90vh] h-[80vh] bg-cover bg-center flex items-center justify-center' >
+      className='sm:h-[90vh] h-[92vh] bg-cover bg-center flex items-center justify-center' >
       {
         !myToken && (
-          <div className=' sm:w-[50vw] w-[90vw] h-[30rem] sm:h-[28rem] sm:ml-[5vw] border-4 border-purple-50 p-8 rounded-xl
+          <div className=' sm:w-[50vw] w-[90vw] h-[35rem] sm:h-[28rem] sm:ml-[5vw] border-4 border-purple-50 p-8 rounded-xl
           border-opacity-25 flex items-center justify-center  '>
         <form className='flex flex-col text-gray-900 w-[90%] '>
           <div className='flex flex-col mb-8 '>
@@ -48,8 +48,10 @@ function Page() {
 
           <button onClick={loginUser} className='bg-purple-50 w-full h-12 mt-8 font-semibold text-xl text-gray-900 tracking-wider
                hover:bg-opacity-5 border-2 hover:border-opacity-20 hover:border-purple-50 hover:text-purple-50 ' >Sign in</button>
-
-          <p className='text-purple-50 text-lg font-semibold mt-6'>Don&apos;t have an account ?
+          {
+            signInError && <p className='text-red-500 text-lg font-semibold mt-2'>{signInError} !</p>
+          }
+          <p className='text-purple-50 text-lg font-semibold mt-4'>Don&apos;t have an account ?
            <Link className='text-2xl text-orange-300 font-bold ' href="/pages/signup">Sign up</Link>
           </p>
         </form>

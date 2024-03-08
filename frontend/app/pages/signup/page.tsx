@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 
 function Page() {
 
-  const { state, dispatch, saveTheUser } = useSignUpContext();
+  const { state, dispatch, saveTheUser, signUpError } = useSignUpContext();
   const [myToken, setMyToken] = useState<string | null>(null);
  
   const router = useRouter();
@@ -53,7 +53,10 @@ function Page() {
 
            <button type='submit' onClick={saveTheUser} className='bg-purple-50 w-full h-12 mt-4 font-semibold text-xl text-gray-900 tracking-wider
               hover:bg-opacity-5 border-2 hover:border-opacity-20 hover:border-purple-50 hover:text-purple-50 ' >Sign up</button>
-           <p className='text-purple-50 text-lg font-semibold mt-6'>Already have an account ? <Link className='text-2xl text-orange-300 font-bold ' href="/pages/signin">Sign In</Link></p>
+            {
+              signUpError && <p className='text-red-600 text-lg font-bold mt-2'>{signUpError} !</p>
+            }
+           <p className='text-purple-50 text-lg font-semibold mt-4'>Already have an account ? <Link className='text-2xl text-orange-300 font-bold ' href="/pages/signin">Sign In</Link></p>
 
          </form>
        </div>

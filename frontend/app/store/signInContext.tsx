@@ -19,6 +19,7 @@ interface SignInContextType {
     state: SignInState;
     dispatch: React.Dispatch<SignInAction>;
     loginUser: (e: React.FormEvent) => void;
+    signInError: string | null;
 }
 
 const initialState: SignInState = {
@@ -31,6 +32,7 @@ const SignInContext = createContext<SignInContextType>({
     state: initialState,
     dispatch: () => {},
     loginUser: () => {},
+    signInError: null,
 });
 
 const reducer = (state: SignInState, action: SignInAction): SignInState => {
@@ -58,6 +60,7 @@ export const useSignInContext = (): SignInContextType => {
 export default function SignInContextProvider({ children }: { children: React.ReactNode }) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [userData, setUserData] = useState({});
+    const [signInError, setSignInError] = useState<string | null>('');
 
     const router = useRouter();
 
@@ -67,7 +70,7 @@ export default function SignInContextProvider({ children }: { children: React.Re
         console.log('login user', state)
         
         try {
-            const res = await fetch('http://localhost:7000/user/login', {
+            const res = await fetch('http://uicolorserver.unurluworks.com/user/login', {
                
                 method: 'POST',
                 headers: {
@@ -96,7 +99,8 @@ export default function SignInContextProvider({ children }: { children: React.Re
             } else {
                 console.log('User not logged in. Status:', res.status);
                 const errorData = await res.json(); // If the server returns error details in the response body
-                console.log('Error Details:', errorData);
+                setSignInError(errorData.error);
+            
             }
         } catch (error) {
             console.log('Error during login:', error);
@@ -105,7 +109,7 @@ export default function SignInContextProvider({ children }: { children: React.Re
 
 
     return (
-        <SignInContext.Provider value={{ state, dispatch, loginUser }}>
+        <SignInContext.Provider value={{ state, dispatch, loginUser, signInError }}>
             {children}
         </SignInContext.Provider>
     );

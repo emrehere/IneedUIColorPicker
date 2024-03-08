@@ -18,7 +18,7 @@ export default function SignUpLayout({
         <NavbarMain styleFromParent="none" propFromParent="Sign Up"/>     
         </div>  
         <div className="sm:flex hidden">
-        <NavbarMain styleFromParent="" propFromParent="Sign Up"/>     
+        <NavbarMain styleFromParent="" propFromParent="Sign In"/>     
         </div>  
         {children}
         <FooterMain/>

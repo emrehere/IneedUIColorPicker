@@ -12,18 +12,30 @@ import { useRouter } from "next/navigation";
 export default function Page() {
 
     const { getData, colors, handleDelete } = useContextApi();
+    const [copyMessage, setCopyMessage] = useState<string | null>(null);
+    const [copiedColor, setCopiedColor] = useState<string>("");
+
     const router = useRouter();
 
+
+    function copyMessageTiming() {
+        setCopyMessage(" Copied !");
+        setTimeout(() => {
+            setCopyMessage(null);
+        }, 600);      
+}
 
     const handleCopyClick = async (color: string) => {
         try {
             await navigator.clipboard.writeText(color);
-            alert('Color copied to clipboard!');
+            setCopiedColor(color);
+            copyMessageTiming();    
         } catch (error) {
             console.error('Unable to copy to clipboard', error);
         }
     };
 
+   
 
     useEffect(() => {
         const myToken = localStorage.getItem('token');
@@ -71,9 +83,13 @@ export default function Page() {
                                   rounded-xl bg-purple-50 text-red-600 cursor-pointer absolute" />
                                 <div onClick={() => handleCopyClick(mycolor)} className="w-64 shadow-xl rounded-md h-64 mx-8  "
                                     style={{ backgroundColor: mycolor, boxShadow: `2px 2px 2px ${mycolor}` }}>
-                                    <div className="flex justify-end">
-                                    </div>
+                                    {
+                                        copyMessage && copiedColor === mycolor &&  (
+                                            <div className="flex w-full h-full justify-center items-center text-red-600 font-bold text-lg">{copyMessage}</div>
+                                        )
+                                    }
                                 </div>
+                                
                             </div>
                         )
                     })
