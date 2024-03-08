@@ -57,7 +57,7 @@ export default function Page() {
                     <div
                         className="bg-gradient-to-br from-black via-gray-950 to-purple-950
          min-h-screen pb-[10vh] overflow-x-hidden">
-                        <Navbar />
+                        <Navbar myTitle={"My Favourites"} myLink={"/pages/favourites"} />
                         <div>
                             <div className="text-4xl  flex justify-center items-center bg-purple-50 shadow-sm shadow-gray-400 
                   sm:h-16 h-32  font-bold sm:mt-8 px-2 sm:px-0">

@@ -14,6 +14,7 @@ export default function Page() {
     const { getData, colors, handleDelete } = useContextApi();
     const [copyMessage, setCopyMessage] = useState<string | null>(null);
     const [copiedColor, setCopiedColor] = useState<string>("");
+    const [browserNoSupport, setBrowserNoSupport] = useState(false);
 
     const router = useRouter();
 
@@ -26,11 +27,13 @@ export default function Page() {
 }
 
     const handleCopyClick = async (color: string) => {
+        setCopiedColor(color);
         try {
             await navigator.clipboard.writeText(color);
-            setCopiedColor(color);
             copyMessageTiming();    
+            setBrowserNoSupport(false);
         } catch (error) {
+            setBrowserNoSupport(true);
             console.error('Unable to copy to clipboard', error);
         }
     };
@@ -50,13 +53,13 @@ export default function Page() {
 
     }, [router])
 
-
+    
 
 
 
     return (
         <div>
-            <Navbar />
+            <Navbar myTitle={"Discover Colors"}  myLink={"/pages/all"} />
             <div  >
                 <h1 className="text-4xl bg-purple-50 flex justify-center p-4
             tracking-widest font-bold text-red-600  sm:h-16 h-32 items-center ">My Favourites</h1>
@@ -86,6 +89,13 @@ export default function Page() {
                                     {
                                         copyMessage && copiedColor === mycolor &&  (
                                             <div className="flex w-full h-full justify-center items-center text-red-600 font-bold text-lg">{copyMessage}</div>
+                                        )
+                                    }
+                                    {
+                                        browserNoSupport && copiedColor === mycolor &&  (
+                                            <div className="flex w-full  h-full justify-center items-center text-red-600 font-bold text-lg">
+                                                <p className="bg-purple-50 px-4 py-2 flex items-center justify-center rounded-xl">{mycolor}</p>
+                                            </div>
                                         )
                                     }
                                 </div>

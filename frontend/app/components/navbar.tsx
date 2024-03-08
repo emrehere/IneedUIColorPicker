@@ -7,7 +7,12 @@ import { useContextApi } from "../store/contextApi";
 import { FaSignOutAlt } from "react-icons/fa";
 import { useEffect } from "react";
 
-export default function Navbar() {
+interface NavbarProps {
+    myTitle: string;
+    myLink: string;
+}
+
+export default function Navbar({ myTitle, myLink } : NavbarProps) {
 
 
 
@@ -16,16 +21,14 @@ export default function Navbar() {
 
     const router = useRouter();
 
-    const handlePushFav = () => {
-        setOnFavPage(true);
-        router.push("/pages/favourites");
+
+    const handlePush = () => {
+        router.push(myLink);
     }
 
-    const handlePushAll = () => {
-        setOnFavPage(false);
-        router.push("/pages/all");
-    }
-
+    useEffect(() => {
+        console.log(myLink, myTitle)
+    },[])
 
    
 
@@ -44,10 +47,9 @@ export default function Navbar() {
 
                 </div>
                 <div className="flex items-center sm:space-x-8 h-20 sm:px-8  " >
-                    {
-                        onFavPage ? <div onClick={handlePushAll}> <RedButton icon={""} title="Discover Colors" /></div>
-                            : <div onClick={handlePushFav}> <RedButton icon={""} title="See My Favourites" />  </div>
-                    }
+                      
+                     <div onClick={handlePush}> <RedButton icon={""} title={myTitle} />  </div> 
+
                     <p className="h-full bg-purple-50 w-[2px] sm:hidden flex "></p>
                     <div onClick={signOut}>
                         <RedButton title="Sign Out" icon={<FaSignOutAlt />} />
