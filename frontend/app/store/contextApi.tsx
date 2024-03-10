@@ -13,7 +13,10 @@ const StoreContext = createContext<ContextApi>({
     deleteColorByHex: () => {},
     handleDelete: () => {},
     signOut: () => {},
-  
+    toggleInputType: () => {},
+    inputType: "password",
+    setInputType: () => {}
+    
   });
 
 export function useContextApi(){
@@ -32,6 +35,9 @@ interface ContextApi {
     deleteColorByHex: (hex: string) => void;
     handleDelete: (colorId: any) => void;
     signOut: () => void;
+    toggleInputType: () => void;
+    inputType: string;
+    setInputType: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface ContextApiProviderProps {
@@ -42,6 +48,7 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
 
     const [onFavPage, setOnFavPage] = useState(false);
     const [colors, setColors] = useState<any>([]);
+    const [inputType, setInputType] = useState<string>("password");
     
 
     const router = useRouter();
@@ -232,10 +239,21 @@ export default function ContextApiProvider({ children }: ContextApiProviderProps
         router.push('/');
 
     }
+
+    
+    const toggleInputType = () => {
+        setInputType("text");
+        setTimeout(() => {
+            setInputType("password");
+        }, 800);
+    };
+
+
  
     return (
         <StoreContext.Provider value={{ colors, addToFavs, deleteColorByHex, getData,
-          onFavPage, setOnFavPage, getAllTheColors, setColors, handleDelete, signOut }} >
+          onFavPage, setOnFavPage, getAllTheColors, setColors, handleDelete, signOut,
+          inputType, setInputType, toggleInputType }} >
             {children}
         </StoreContext.Provider>
 

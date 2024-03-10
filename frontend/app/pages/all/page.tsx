@@ -64,7 +64,7 @@ export default function Page() {
                                 <p className="text-red-600 ">Most Preferred Colors</p>
                             </div>
                             <div
-                                className="text-purple-50 mt-2  text-md flex justify-center items-center  "
+                                className="text-purple-50 mt-2 px-2 text-md flex justify-center items-center  "
                             >
                                 Most preferred colors change every single second, if you like a color, make sure you add to your favourites
                             </div>
@@ -92,7 +92,9 @@ export default function Page() {
 
                         </div>
                         <div className="flex justify-center mt-4">
-                            <button className="hover:bg-opacity-5 hover:border-2 hover:text-purple-50 bg-purple-50 w-[50vw] sm:w-[30vw] mt-2 mb-8 sm:mb-4 text-gray-950 text-xl font-semibold rounded-xl bg-opacity-90 h-16 " onClick={see10More}>See 10 More</button>
+                            <button className="hover:bg-opacity-5 hover:border-2 hover:text-purple-50
+                             bg-purple-50 w-[50vw] sm:w-[35vw] mt-2 mb-8 sm:mb-4 text-gray-950 
+                             text-xl font-semibold rounded-xl bg-opacity-90 h-16 " onClick={see10More}>See 10 More</button>
                         </div>
 
                     </div>
