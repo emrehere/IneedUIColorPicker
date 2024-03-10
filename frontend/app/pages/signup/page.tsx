@@ -22,6 +22,16 @@ function Page() {
     }
   }, [router])
 
+  const handleEnterSignup = (e: any) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      console.log("heyyy", state)
+      saveTheUser(e)
+    }
+  }
+
+ 
+
   return (
     <div>
       {
@@ -42,16 +52,16 @@ function Page() {
                   <h2 className='text-4xl font-semibold text-purple-50 mb-4'>Join Now !</h2>
                 </div>
                 <label className='text-purple-50 text-lg font-semibold'> Name :  </label>
-                <input value={state.name}
+                <input onKeyDown={handleEnterSignup} value={state.name}
                   onChange={(e) => dispatch({ type: "name", payload: e.target.value })}
                   className='h-10 mb-2 px-2 font-medium' type="text" />
                 <label className='text-purple-50 text-lg font-semibold'> Email :  </label>
-                <input value={state.email}
+                <input onKeyDown={handleEnterSignup}  value={state.email}
                   onChange={(e) => dispatch({ type: "email", payload: e.target.value })}
                   className='h-10 mb-2 px-2 font-medium' type="email" />
                 <label className='text-purple-50 text-lg font-semibold'> Password :  </label>
                 <div className='flex items-center w-full'>
-                <input value={state.password}
+                <input onKeyDown={handleEnterSignup} value={state.password}
                   onChange={(e) => dispatch({ type: "password", payload: e.target.value })}
                   className='h-10 px-2 font-medium mb-2 w-full' type={inputType} />
                 <ToggleInput />

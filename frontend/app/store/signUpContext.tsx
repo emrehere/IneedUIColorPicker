@@ -83,7 +83,7 @@ interface SignUpState {
             password: state.password
           })
         })
-        console.log(res)
+        
   
         if (res.ok) {
           
@@ -97,8 +97,7 @@ interface SignUpState {
 
            router.push('/pages/home');
 
-        } else {
-            
+        } else {     
           const errorMessage = await res.json();
           setSignUpError(errorMessage.error);
 
