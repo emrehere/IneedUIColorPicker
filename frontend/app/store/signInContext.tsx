@@ -20,6 +20,8 @@ interface SignInContextType {
     dispatch: React.Dispatch<SignInAction>;
     loginUser: (e: React.FormEvent) => void;
     signInError: string | null;
+    loading: boolean;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const initialState: SignInState = {
@@ -33,6 +35,8 @@ const SignInContext = createContext<SignInContextType>({
     dispatch: () => {},
     loginUser: () => {},
     signInError: null,
+    loading: false,
+    setLoading: () => {},
 });
 
 const reducer = (state: SignInState, action: SignInAction): SignInState => {
@@ -61,6 +65,7 @@ export default function SignInContextProvider({ children }: { children: React.Re
     const [state, dispatch] = useReducer(reducer, initialState);
     const [userData, setUserData] = useState({});
     const [signInError, setSignInError] = useState<string | null>('');
+    const [loading , setLoading] = useState<boolean>(false);
 
     const router = useRouter();
 
@@ -68,6 +73,7 @@ export default function SignInContextProvider({ children }: { children: React.Re
         e.preventDefault();
         console.log("hadi basla")
         console.log('login user', state)
+        setLoading(true)
         
         try {
             const res = await fetch('http://uicolorserver.unurluworks.com/user/login', {
@@ -104,12 +110,14 @@ export default function SignInContextProvider({ children }: { children: React.Re
             }
         } catch (error) {
             console.log('Error during login:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
 
     return (
-        <SignInContext.Provider value={{ state, dispatch, loginUser, signInError }}>
+        <SignInContext.Provider value={{ state, dispatch, loginUser, signInError, loading, setLoading }}>
             {children}
         </SignInContext.Provider>
     );

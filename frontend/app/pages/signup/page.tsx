@@ -5,10 +5,11 @@ import { useSignUpContext } from '@/app/store/signUpContext'
 import { useRouter } from 'next/navigation'
 import { useContextApi } from '@/app/store/contextApi'
 import ToggleInput from '@/app/components/toggleInput'
+import Loading from '@/app/components/loading'
 
 function Page() {
 
-  const { state, dispatch, saveTheUser, signUpError } = useSignUpContext();
+  const { state, dispatch, saveTheUser, signUpError, loading1, setLoading1 } = useSignUpContext();
   const { inputType } = useContextApi()
   const [myToken, setMyToken] = useState<string | null>(null);
 
@@ -30,7 +31,7 @@ function Page() {
     }
   }
 
- 
+
 
   return (
     <div>
@@ -56,18 +57,20 @@ function Page() {
                   onChange={(e) => dispatch({ type: "name", payload: e.target.value })}
                   className='h-10 mb-2 px-2 font-medium' type="text" />
                 <label className='text-purple-50 text-lg font-semibold'> Email :  </label>
-                <input onKeyDown={handleEnterSignup}  value={state.email}
+                <input onKeyDown={handleEnterSignup} value={state.email}
                   onChange={(e) => dispatch({ type: "email", payload: e.target.value })}
                   className='h-10 mb-2 px-2 font-medium' type="email" />
                 <label className='text-purple-50 text-lg font-semibold'> Password :  </label>
                 <div className='flex items-center w-full'>
-                <input onKeyDown={handleEnterSignup} value={state.password}
-                  onChange={(e) => dispatch({ type: "password", payload: e.target.value })}
-                  className='h-10 px-2 font-medium mb-2 w-full' type={inputType} />
-                <ToggleInput />
+                  <input onKeyDown={handleEnterSignup} value={state.password}
+                    onChange={(e) => dispatch({ type: "password", payload: e.target.value })}
+                    className='h-10 px-2 font-medium mb-2 w-full' type={inputType} />
+                  <ToggleInput />
                 </div>
                 <button type='submit' onClick={saveTheUser} className='bg-purple-50 w-full h-12 mt-4 font-semibold text-xl text-gray-900 tracking-wider
-              hover:bg-opacity-5 border-2 hover:border-opacity-20 hover:border-purple-50 hover:text-purple-50 ' >Sign up</button>
+              hover:bg-opacity-5 border-2 hover:border-opacity-20 hover:border-purple-50 hover:text-purple-50 ' >
+                  {loading1 ? <Loading /> : "Sign Up"}
+                </button>
 
                 {
                   signUpError && <p className='text-red-600 text-lg font-bold mt-2'>{signUpError} !</p>

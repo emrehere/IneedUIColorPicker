@@ -5,10 +5,11 @@ import { useSignInContext } from '@/app/store/signInContext'
 import { useRouter } from 'next/navigation'
 import { useContextApi } from '@/app/store/contextApi'
 import ToggleInput from '@/app/components/toggleInput'
+import Loading from '@/app/components/loading'
 
 function Page() {
 
-  const { dispatch, state, loginUser, signInError } = useSignInContext()
+  const { dispatch, state, loginUser, signInError, loading, setLoading } = useSignInContext()
   const { inputType } = useContextApi()
   const [myToken, setMyToken] = useState<string | null>(null);
 
@@ -61,7 +62,9 @@ function Page() {
               <ToggleInput />
               </div>
               <button onClick={loginUser} className='bg-purple-50 w-full h-12 mt-8 font-semibold text-xl text-gray-900 tracking-wider
-               hover:bg-opacity-5 border-2 hover:border-opacity-20 hover:border-purple-50 hover:text-purple-50 ' >Sign in</button>
+               hover:bg-opacity-5 border-2 hover:border-opacity-20 hover:border-purple-50 hover:text-purple-50 ' >
+                {loading ? <Loading /> : "Sign In"}
+               </button>
               {
                 signInError && <p className='text-red-500 text-lg font-semibold mt-2'>{signInError} !</p>
               }
