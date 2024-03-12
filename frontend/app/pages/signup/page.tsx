@@ -5,7 +5,13 @@ import { useSignUpContext } from '@/app/store/signUpContext'
 import { useRouter } from 'next/navigation'
 import { useContextApi } from '@/app/store/contextApi'
 import ToggleInput from '@/app/components/toggleInput'
-import Loading from '@/app/components/loading'
+import dynamic from 'next/dynamic'
+
+const Loading = dynamic(() => import("@/app/components/loading"), {
+  ssr: false
+})
+
+
 
 function Page() {
 
